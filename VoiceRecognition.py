@@ -13,33 +13,33 @@ def SpeakText(command):
     engine.say(command)
     engine.runAndWait()
 
+try:
+    print("Will stop on Ctrl+C press")
+    # Loop infinitely for user to speak until escape is pressed
+    while(1):   
+        # Exception handling to handle
+        # exceptions at the runtime
+        try: 
+            # use the microphone as source for input.
+            with sr.Microphone() as source2:
+                # wait for 0.5 seconds to let the recognizer
+                # adjust the energy threshold based on
+                # the surrounding noise level
+                r.adjust_for_ambient_noise(source2, 0.2)
 
-# Loop infinitely for user to speak until escape is pressed
-while(1):   
-    # Exception handling to handle
-    # exceptions at the runtime
-    try: 
-        # use the microphone as source for input.
-        with sr.Microphone() as source2:
-            # wait for 0.5 seconds to let the recognizer
-            # adjust the energy threshold based on
-            # the surrounding noise level
-            r.adjust_for_ambient_noise(source2, 0.5)
-
-            #listens for the user's input
-            audio2 = r.listen(source2)
+                #listens for the user's input
+                audio2 = r.listen(source2)
+        
+                # Using google to recognize audio
+                MyText = r.recognize_google(audio2)
     
-            # Using google to recognize audio
-            MyText = r.recognize_google(audio2)
-            #MyText = MyText.lower()
- 
-            print("Said: ", MyText)
-            SpeakText(MyText)
-             
-    except sr.RequestError as e:
-        print("Could not request results; {0}".format(e))
-    except sr.UnknownValueError:
-        print("unknown error occurred")
+                print("Said: ", MyText)
+                SpeakText(MyText)
+                
+        except sr.RequestError as e:
+            print("Could not request results; {0}".format(e))
+        except sr.UnknownValueError:
+            print("unknown error occurred")
 
-    if cv2.waitKey(1) & 0xFF == ord(chr(27).encode()):
-        break
+except KeyboardInterrupt:
+    pass
