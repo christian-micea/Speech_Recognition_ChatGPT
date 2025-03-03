@@ -3,7 +3,8 @@ import pyttsx3
 import os
 import openai
 
-openai.api_key_path = "C:\Work\Chris\Programare vara cu Razvan\Audio ChatGPT\OpenAI_Key.txt"
+# Insert file path for API key
+openai.api_key_path = "C:\Work\Chris\..."
 
 # Initialize the recognizer
 r = sr.Recognizer()
